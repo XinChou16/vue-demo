@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-else 指令</title>
+</head>
+<body>
+  <div id="app">
+    <p v-if="height>0"> {{msg}}</p>
+    <p v-else>not see</p>
+  </div>
+  
+  <script src="./js/vue.min.js"></script>
+  <script>
+   let app = new Vue({
+     el: '#app',
+     data:{
+       height:1,
+       msg:'U see me'
+     }
+   })  
+  </script>
+</body>
+</html>

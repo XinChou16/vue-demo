@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-bind 指令</title>
+  <style>
+    div{
+      margin-bottom: 20px;
+    }
+    .active{
+      background-color: #3cc;
+    }
+    .static{
+      color: #fff;
+    }
+    .text-danger{
+      color: #f00;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+
+    <!-- 绑定类名 -->
+    <div :class="{active: isActive}">active类</div>
+
+    <div class="static"
+         v-bind:class="{active: isActive}">多个类，v-bind绑定的类共存</div>
+         
+    <div class="static"
+         v-bind:class="classObj">多个类，v-bind绑定的类与之前定义的类共存</div>
+
+    <div v-bind:class="[activeClass,failClass]">通过数组来绑定类，这行文字添加了2个类</div>
+
+    <!-- 绑定行内样式 -->
+    <div v-bind:style="{color: activeColor,fontSize: fontSize+'px'}">绑定行内样式</div>
+    <div v-bind:style="styleObject">通过一个对象绑定</div>
+    <div v-bind:style="[baseStyles,styleObject]">通过一个数组绑定</div>
+    
+    <!-- 绑定属性 -->
+    <div v-bind="{id:someProp,'data-index': otherProp}">绑定了id和data-index,打开控制台查看</div>
+    
+    <div v-bind:text-content.prop="text"></div>
+    <div v-text="text"></div>
+  </div>
+  
+  <script src="./js/vue.min.js"></script>
+  <script>
+   let app = new Vue({
+     el: '#app',
+     data:{
+       isActive: true,
+       classObj: {
+         active: true,
+         'text-danger': false
+       },
+       activeClass: 'active',
+       failClass: 'text-danger',
+       activeColor:'green',
+       fontSize: 20,
+       styleObject:{
+         color:'red',
+         fontSize: '13px'
+       },
+       baseStyles:{
+         border:'1px dotted cyan',
+       },
+       someProp:'active',
+       otherProp: 2,
+       text:'dom textContent'
+     }
+   })  
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-bind 指令</title>
+  <style>
+    .active{
+      background-color: #3cc;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <a v-bind:href="url">百科</a>
+    <a :href="url">百科2</a>
+    <p>绑定类名</p>
+    <p v-for="(animal,index) in animals"
+       :class="activeIndex === index ? 'active' : '' ">{{animal}}</p>
+  </div>
+  
+  <script src="./js/vue.min.js"></script>
+  <script>
+   let app = new Vue({
+     el: '#app',
+     data:{
+       url:'https://baidu.com',
+       animals:[
+         'dog',
+         'cat',
+         'elephant',
+         'tiger',
+       ],
+       activeIndex: 1
+     }
+   })  
+  </script>
+</body>
+</html>
