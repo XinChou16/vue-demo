@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-else 指令</title>
+  <style>
+    button {
+      float: left;
+    }
+    ul > li{
+      list-style: none;
+      /* outline:1px dotted cyan; */
+      width: 200px;
+      background-color: lightblue;
+    }
+    li{
+      position: relative;
+    }
+    .del{
+      position: absolute;
+      right: 0;
+      top: 0;
+      outline: 0;
+      border: 0;
+      color: #ffffff;
+      background-color: #3cc;
+    }
+    .del:hover{
+      background-color: #3ec;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <p>在输入框输入数据，按下回车，自动添加到页面</p>
+    <p>点击删除，删除该行数据</p>
+    <input type="text"
+      v-model="inputVal"
+      @keydown.enter="addLi">
+    <ul >
+      <template v-for="(li,index) in list" class="list" :index="index">
+        <li>
+          <p>{{li}}</p>
+          <button class="del" v-on:click="del(index)">删除</button>
+        </li>
+      </template>
+     
+    </ul>
+  </div>
+  
+  <script src="./js/vue.min.js"></script>
+  <script>
+   let app = new Vue({
+     el: '#app',
+     data:{
+       inputVal:'',
+       list:['shop']
+     },
+     methods: {
+       addLi() {
+         this.list.push(this.inputVal);
+       },
+       del(index) {
+         this.list.splice(index,1);
+         console.log(this.list);
+       }
+     }
+   })  
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>lifecycle</title>
+</head>
+<body>
+  <div id="app">
+    {{msg}}
+  </div>
+
+<script src="./js/vue.min.js"></script>
+<script>
+  let app = new Vue({
+    el:'#app',
+    data:{
+      msg: 'Awesome'
+    },
+    beforeCreate(){
+      // 初始化声明周期和事件
+      console.log('beforeCreate:创建之前');
+      console.log('el is: ',this.$el);
+      console.log('data is : ',this.$data);
+    },
+    created() {
+      console.log('created:创建完毕');
+      console.log('el is: ',this.$el);
+      console.log('data is : ',this.$data);
+    },
+    beforeMount() {
+      console.log('beforeMount:挂载之前');
+      console.log('el is: ',this.$el);
+      console.log('data is : ',this.$data);
+    },
+    mounted() {
+      console.log('mounted:挂载完成');
+      console.log('el is: ',this.$el);
+      console.log('data is : ',this.$data);
+    },
+    beforeUpdate() {
+      console.log('beforeMount:更新之前');
+      // this.msg = 'xinxin';
+      console.log('Now msg is: ',this.msg);
+    },
+    updated() {
+      console.log('已经更新');
+    },
+    beforeDestory() {
+      console.log('销毁之前');
+    },
+    destoryed() {
+      console.log('已经销毁');
+    }
+  })
+</script>
+</body>
+</html>
