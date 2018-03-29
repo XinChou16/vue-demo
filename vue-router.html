@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue路由</title>
+</head>
+<body>
+  <div id="app">
+
+  </div>
+
+<script src="./js/vue.min.js"></script>
+<script>
+  const notFound = { template: '<p>Not found</p>'}
+  const Home = { template: '<p>home page</p>'}
+  const About = { template: '<p>about page</p>'}
+
+  const routes = {
+    '/': Home,
+    '/about': About
+  }
+  let app = new Vue({
+    el: '#app',
+    data: {
+      currentRoute: window.location.pathname
+    },
+    computed: {
+      ViewComponent() {
+        return routes[this.currentRoute] || notFound
+      }
+    },
+    return (h) {return h(this.ViewComponent)}
+  })
+</script>
+</body>
+</html>
