@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue demo nav</title>
+</head>
+<body>
+    <div id="app">
+      <ul>
+        <li><router-link to="./dynamic-router.html">路由起步</router-link></li>
+        <li><router-link to="">动态路由</router-link></li>
+      </ul>
+      <p>
+          <router-link to="/user/hua/profile">/user/hua/profile</router-link>
+          <router-link to="/user/hua/like">/user/hua/like</router-link>
+      </p>
+      <router-view></router-view>
+    </div>
+
+<script src="./js/vue.min.js"></script>
+<script src="./js/vue-router.js"></script>
+<script>
+  const User = {
+      template: `
+      <div class="user">
+        <h2>User {{$route.params.id}}</h2>
+        <router-view></router-view> 
+      </div>
+      `
+  }
+  const userProfile = {
+    template: '<div>User profile</div>'
+  }
+  const userLike = {
+    template: '<div>User like</div>'
+  }
+
+    const router = new VueRouter({
+      routes: [
+        { path: '/user/:id', component: User ,
+        children:[
+          {path:'profile',component:userProfile},
+          {path:'like',component:userLike}
+        ]}
+      ]
+    })
+    new Vue({
+      router: router,
+      mounted: function () {
+        console.log(this.$route);
+      }
+    }).$mount('#app')
+
+</script>
+</body>
+</html>
