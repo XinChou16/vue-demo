@@ -16,7 +16,7 @@
 <script>
   const Home = {template: '<div>This is home page</div>'} 
   const About = {template: '<div>This is about page</div>'} 
-  const Me = {template: '<div>This is {{$route.params.id}} page</div>'} 
+  const Me = {template: '<div>This is  page</div>'} 
 
   const router = new VueRouter({
     mode: 'history',
@@ -36,8 +36,8 @@
         <p>Current route name: {{ $route.name }}</p>
         <ul>
           <li><router-link :to="{ name: 'home' }">home</router-link></li>
-          <li><router-link :to="{ name: 'foo' }">foo</router-link></li>
-          <li><router-link :to="{ name: 'bar', params: { id: 123 }}">bar</router-link></li>
+          <li><router-link :to="{ name: 'about' }">about</router-link></li>
+          <li><router-link :to="{ name: 'me', params: { id: 123 }}">me</router-link></li>
         </ul>
         <router-view class="view"></router-view>
       </div>

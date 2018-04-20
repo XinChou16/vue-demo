@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>命名视图</title>
+</head>
+<body>
+  
+    <div id="app">
+     
+      </div>
+  
+  <script src="./js/vue.min.js"></script>
+  <script src="./js/vue-router.js"></script>
+  <script>
+    const Home = {template: '<div>Home</div>'}
+    const About = {template: '<div>About</div>'}
+    const Me = {template: '<div>Me</div>'}
+
+    const router = new VueRouter({
+      mode: 'history',
+      routes:[
+        {path: '/',components:{
+          default: Home,
+          a: About,
+          b: Me
+        }},{
+          path: '/other',components:{
+            default: Me,
+            a: About,
+            b:Home
+          }
+        }
+      ]
+    })
+
+    new Vue({
+      router,
+      template: `
+      <div id="app">
+        <h2>named router</h2>
+        <ul>
+          <li><router-link to="/">Home</router-link></li>
+          <li><router-link to="/other">other</router-link></li>
+        </ul>
+        <router-view></router-view>
+        <router-view name="a"></router-view>
+        <router-view name="b"></router-view>
+      </div>
+      `
+    }).$mount('#app')
+
+  </script>
+</body>
+</html>
