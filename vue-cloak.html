@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue-cloak测试</title>
+  <style lang="">
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    {{ msg }}
+    <br>
+    <span v-pre>
+      {{ This will not be compiled}}
+      <a href="">{{ not be compiled too}}</a>
+    </span>
+    <input type="text" @keyup="show($event)">
+    <input type="text" @keyup.enter="show($event)">
+  </div>
+  
+  <script src="http://cdn.staticfile.org/vue/2.2.6/vue.js"></script>
+  <script>
+    setTimeout(() => {
+      new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello'
+        },
+        methods: {
+          show: function(ev) {
+            console.log(ev);
+            console.log('当前键码为'+ev.keyCode);
+            if(ev.keyCode === 13) {
+              alert('Enter~')
+            }
+          }
+        }
+      })
+    }, 1000);
+    // v-loak
+    // https://cn.vuejs.org/v2/api/#v-cloak
+  </script>
+</body>
+</html>
