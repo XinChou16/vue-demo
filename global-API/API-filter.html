@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>API Filter使用</title>
+  <style lang="">
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <section>
+      <h2>过滤器的使用-添加前缀</h2>
+      <p>{{352.11 | toRMB}}</p>
+      <p>{{657 | toRMB}}</p>
+      <p>{{657.22 | toFixed }}</p>
+      <p>{{657.22 | toFixed | toRMB}}</p>
+      <h2>多重参数</h2>
+      <p>{{text}}</p>
+      <p>{{text | readMore(20,'...')}}</p>
+      <h2>链式过滤</h2>
+      <p>{{money}}</p>
+      <p>{{money|toFixed|toRMB}}</p>
+    </section>
+  </div>
+  
+  <script src="http://cdn.staticfile.org/vue/2.2.6/vue.js"></script>
+  <script>
+    
+    Vue.filter('toRMB', function (value) {
+      return `￥${value}`
+    })
+
+    new Vue({
+      el: '#app',
+      data: {
+        text: 'hello I love u, will u love me ?',
+        money: 826.26,
+      },
+      filters: {
+        toFixed: function(money) {
+          return money.toFixed(1)
+        },
+        Upper: function (value) {
+          return value.toUpperCase();
+        },
+        Lower: function (value) {
+          return value.toLowerCase();
+        },
+        readMore: function (value,length,suffix) {
+          console.log(arguments);
+          return value.substr(0,length) + suffix;
+        },
+      }
+    })
+  </script>
+</body>
+</html>

@@ -47,26 +47,28 @@
       <h2>What to do next?</h2>
     </header>
   </section>
-  <input type="text"
-    placeholder="What need to be done"
-    v-focus
-    v-model="todoText"
-    @keydown.enter="addTodo">
+  
   <ul >
-    <todo-list
-    v-for="(todo,index) in todos"
-    :key="index"
-    :content="todo"   
-    :index="index"
-    @delete="delTodo"
-    v-cloak
-    ></todo-list>
+      <li class="list">
+          <p>
+            <input type="checkbox" 
+              v-model="isChecked"
+             >
+            <span class="todo-text">text</span>
+          </p>
+          </li>
   </ul>
-
 </div>
   
 
 <script src="../js/vue.js" type="text/javascript"></script>
-<script src="./app.js"></script>
+<script >
+  let vm = new Vue({
+    el:"#app",
+    data: {
+      isChecked: false
+    }
+  })
+</script>
 </body>
 </html>
