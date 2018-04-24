@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>watchdemo</title>
+  <script src="./js/vue.js"></script>
+</head>
+<body>
+  
+  <div id="app">
+    <h2>Hour-MINUTE-SECOND</h2>
+    Hours: <input type="text" v-model="hours">
+    Minutes: <input type="text" v-model="minutes">
+    Seconds: <input type="text" v-model="seconds">
+  </div>
+<script >
+  new Vue({
+    el:'#app',
+    data: {
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+    },
+    watch: {
+      hours: function(val) {
+        this.hours = val;
+        this.minutes = val*60;
+        this.seconds = val*3600;
+      },
+      minutes: function(val) {
+        this.minutes = val;
+        this.hours = val/60;
+        this.seconds = val*60;
+      },
+      seconds: function(val) {
+        this.seconds = val;
+        this.hours = val/3600;
+        this.minutes = val/60;
+
+      },
+    }
+  })
+</script>
+</body>
+</html>
