@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>lifecycle</title>
+</head>
+<body>
+  <h2>配合控制台查看日志更佳</h2>
+  <div id="app">
+    {{msg}}
+    <section>
+      <button @click="clickMe">btn</button>
+      <p ref="dom">count: {{count}}</p>
+    </section>
+  </div>
+
+<script src="../js/vue.min.js"></script>
+<script>
+  let app = new Vue({
+    el:'#app',
+    data() {
+      return {
+        msg: 'Awesome',
+        count: 0
+      }
+    },
+    methods: {
+      clickMe() {
+        alert(this.msg)
+      }
+    },
+    beforeCreate(){
+      // 初始化生命周期和事件
+      console.log('********beforeCreate:创建之前********');
+      console.log('el is: ',this.$el);
+      console.log('msg is : ',this.msg);
+    },
+    created() {
+      console.log('********created:已创建********');
+      console.log('el is: ',this.$el);
+      console.log('msg is : ',this.msg);
+      setTimeout( () => {
+        this.count++
+      },2000)
+    },
+    beforeMount() {
+      console.log('********beforeMount:挂载之前********');
+      console.log('$el内容为：'+this.$el.textContent);
+    },
+    mounted() {
+      console.log('********mounted:已挂载********');
+      console.log('$el内容为：'+this.$el.textContent);
+      console.log('********count在2s后更新********');
+    },
+    beforeUpdate() {
+      console.log('********count 更新之前********');
+      console.log('count is '+this.count); // 数据已发生改变，但未渲染到页面
+      console.log('count节点的文字内容'+this.$refs['dom'].textContent);
+    },
+    updated() {
+      console.log('********count已更新********');
+      console.log('count节点的文字内容'+this.$refs['dom'].textContent);// 渲染到页面上
+    },
+    beforeDestroy() {
+      console.log('********beforeDestory:销毁之前********');
+    },
+    destroyed() {
+      console.log('********destoryed:已销毁********');
+    }
+  })
+</script>
+</body>
+</html>
