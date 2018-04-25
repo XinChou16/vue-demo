@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>compute</title>
+  <script src="./js/vue.js"></script>
+</head>
+<body>
+  
+  <div id="app">
+    <section>
+      
+      FirstName : <input type = "text" v-model = "firstname" /> <br/><br/>
+      LastName : <input type = "text" v-model = "lastname"/> <br/><br/>
+      <h1>My name is {{firstname}} {{lastname}}</h1>
+      <h1>Using computed method : {{getfullname}}</h1>
+    </section>
+    <section>
+      <h1 style = "background-color:gray;">Random No from computed property: {{getrandomno}}</h1>
+      <h1>Random No from method: {{getrandomno1()}}</h1>
+      <h1>Random No from method : {{getrandomno1()}}</h1>
+      <h1  style = "background-color:gray;">Random No from computed property: {{getrandomno}}</h1>
+      <h1  style = "background-color:gray;">Random No from computed property: {{getrandomno}}</h1>
+      <h1  style = "background-color:gray;">Random No from computed
+          property: {{getrandomno}}</h1>
+      <h1>Random No from method: {{getrandomno1()}}</h1>
+      <h1>Random No from method: {{getrandomno1()}}</h1>
+    </section>
+    <section>
+      <input type = "text" v-model = "fullname" />
+      <h1>{{firstName}}</h1>
+      <h1>{{lastName}}</h1>
+    </section>
+  </div>
+<script >
+  // https://www.tutorialspoint.com/vuejs/vuejs_computed_properties.htm
+  new Vue({
+    el:'#app',
+    data: {
+      firstname:'',
+      lastname:'',
+      lastName:'xin',
+      firstName: 'chou',
+    },
+    computed: {
+      getfullname : function(){
+         return this.firstname +" "+ this.lastname;
+      },
+      getrandomno:function() {
+        return Math.floor(Math.random()*10)
+      },
+      fullname: {
+        get: function() {
+          return this.firstName+ '' + this.lastName;
+        },
+        set: function (name) {
+          var fname = name.split(" ");
+          this.firstName = fname[0];
+          this.lastName = fname[1]
+        }
+      }
+    },
+    methods: {
+      getrandomno1:function() {
+        return Math.floor(Math.random()*10)
+      }
+    }
+  })
+</script>
+</body>
+</html>
