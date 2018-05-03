@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mixins</title>
+  <style >
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    
+  </div>
+  
+  <script src="../js/vue.js"></script>
+  <script>
+    // https://scotch.io/tutorials/extending-vue-components-with-mixins
+    // 定义混入对象
+    var myMixin = {
+      created: function() {
+        this.hello();
+      },
+      methods: {
+        hello: function() {
+          console.log('hello from mixins');
+        }
+      }
+    }
+    // 全局混入
+    Vue.mixin({
+      mounted: function() {
+        console.log('全局混入对象');
+      },
+    })
+    new Vue({
+      el: '#app',
+      mixins: [myMixin],
+      created: function() {
+        console.log('hello from vue instance~');
+      },
+    })
+  </script>
+</body>
+</html>

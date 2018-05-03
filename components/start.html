@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style >
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <todo 
+      msg="hello"
+      v-bind:num="show"
+      v-bind:colors="colors"
+    ></todo>
+    
+    <h2>counter</h2>
+    <p>total: {{total}}</p>
+    <counter v-on:up="upTotal"></counter>
+    <counter v-on:up="upTotal"></counter>
+  </div>
+  
+  <script src="../js/vue.js"></script>
+  <script>
+    Vue.component('todo', {
+      props:{
+        msg: String,
+        num: [String,Number],
+        colors: Array
+      },
+      data: function() {
+        return {
+          newNum: this.num,
+        }
+      },
+      template:`
+      <div>
+        <p>静态数据 {{msg}}</p>
+        <p>动态数据 {{num}}</p>
+        <p>更改动态数据 {{!num}}</p>
+        <p>更改动态数据，让num加一 {{newNum+1}}</p>
+        <p>{{colors[0]}}</p>
+        
+      </div>
+      `,
+    })
+
+    Vue.component('counter', {
+      template: '<button v-on:click="upCounter">{{count}}</button>',
+      data: function() {
+        return {
+          count: 0,
+        }
+      },
+      methods: {
+        upCounter: function() {
+          this.count+=1;
+          this.$emit('up');
+        }
+      }
+    })
+    new Vue({
+      el: '#app',
+      data: function() {
+        return {
+          show: 1,
+          colors:['r','g','b'],
+          total: 0,
+        }
+      },
+      methods: {
+        upTotal: function() {
+          this.total += 1;
+        }
+      }
+    })
+  </script>
+</body>
+</html>

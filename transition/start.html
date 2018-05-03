@@ -9,20 +9,29 @@
     [v-cloak]{
       display: none;
     }
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
+    }
   </style>
 </head>
 <body>
   <div id="app" v-cloak>
-    {{ msg }}
+    <button @click="show=!show">toggle</button>
+    <transition name="fade">
+      <p v-if="show">hello</p>
+    </transition>
   </div>
   
   <script src="../js/vue.js"></script>
   <script>
-    new vue({
+    new Vue({
       el: '#app',
       data: function() {
         return {
-          msg: 'hello'
+          show: true
         }
       }
     })

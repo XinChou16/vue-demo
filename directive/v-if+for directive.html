@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-else 指令</title>
+</head>
+<body>
+  <div id="app">
+    <section>
+      <h2>一段取值范围</h2>
+      <div>
+        <span v-for="n in 10">{{n}}</span>
+      </div>
+    </section>
+    <section>
+      <h2>v-for in template</h2>
+      <ul>
+        <template v-for="item in lists">
+          <li>{{item}}</li>
+        </template>
+      </ul>
+    </section>
+    <section>
+      <h2>显示过滤结果</h2>
+      <span v-for="num in evennumbers">{{num}}</span>
+    </section>
+  </div>
+  
+  <script src="../js/vue.min.js"></script>
+  <script>
+   let app = new Vue({
+     el: '#app',
+     data:{
+       lists: ['item1','item2'],
+       msg:'U see me',
+       numbers: [1,2,3,4,5,6,7,8,9,0]
+     },
+     computed: {
+       evennumbers: function() {
+         return this.numbers.filter(function(n) {
+           return n % 2 == 0;
+         })
+       }
+     }
+   })  
+  </script>
+</body>
+</html>

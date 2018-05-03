@@ -8,17 +8,27 @@
 </head>
 <body>
   <div id="app">
-    <p v-if="height>0"> {{msg}}</p>
-    <p v-else>not see</p>
+   {{start}}
+   <start>{{start}}</start>
   </div>
   
-  <script src="../js/vue.min.js"></script>
+  <script src="../js/vue.js"></script>
   <script>
-   let app = new Vue({
+  Vue.component('start',{
+    template: `<p>{{start}}</p>`,
+    data() {
+      return {
+      start:'U see me1'
+      }
+    }
+  })  
+   // second vue instance
+   new Vue({
      el: '#app',
-     data:{
-       height:1,
-       msg:'U see me'
+     data() {
+       return {
+        start:'U see me2'
+       }
      }
    })  
   </script>
