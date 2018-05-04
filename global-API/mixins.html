@@ -13,20 +13,27 @@
 </head>
 <body>
   <div id="app" v-cloak>
-    
+    <p>{{count}}</p>
+    <div v-show="toggle">
+      <button @click="increment">increment</button>
+      <button @click="decrement">decrement</button>
+    </div>
+    <button @click="toggleBtn">toggle btn</button>
   </div>
   
   <script src="../js/vue.js"></script>
   <script>
     // https://scotch.io/tutorials/extending-vue-components-with-mixins
     // 定义混入对象
-    var myMixin = {
-      created: function() {
-        this.hello();
+    var toggleMinix = {
+      data: function() {
+        return {
+          toggle: true,
+        }
       },
       methods: {
-        hello: function() {
-          console.log('hello from mixins');
+        toggleBtn: function() {
+          this.toggle = !this.toggle;
         }
       }
     }
@@ -38,10 +45,21 @@
     })
     new Vue({
       el: '#app',
-      mixins: [myMixin],
+      data: {
+        count: 0,
+      },
+      mixins: [toggleMinix],
       created: function() {
         console.log('hello from vue instance~');
       },
+      methods: {
+        increment: function() {
+          this.count += 1;
+        },
+        decrement: function() {
+          this.count -= 1;
+        }
+      }
     })
   </script>
 </body>

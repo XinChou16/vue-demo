@@ -21,16 +21,38 @@
       use directive
     <input type="text" @keyup.enter="show($event)"  v-focus>
     </p>
-    <Comp></Comp>
+
+    <div>
+      <p>custome directive</p>
+      <p v-xin:right="20">v-xin:right="20"</p>
+      <!-- <p v-xin:right="{size:20,top:10,right:10}">v-xin:right="{size:20,top:10,right:10}</p> -->
+    </div>
   </div>
   
   <script src="../js/vue.js"></script>
   <script>
+    // https://css-tricks.com/power-custom-directives-vue/
+    Vue.directive('xin',{
+      bind(el,binding,vnode) {
+        el.style.color="cyan";
+        el.style.position="fixed";
+        el.style.fontSize= binding.value.size + 'px';
+        let pos = (binding.arg === 'right') ? 'right' : 'top';
+        el.style[pos] = binding.value + 'px';
 
+        console.log('el is ',el);
+        console.log('binding is ',binding);
+        console.log('vnode is ' ,vnode);
+      },
+      update(el,binding,vnode,oldNode) {
+        console.log('el is updated');
+      }
+    })
     new Vue({
       el: '#app',
       data: {
-        msg: 'hello'
+        msg: 'hello',
+        input: '',
       },
       methods: {
         show: function (ev) {
