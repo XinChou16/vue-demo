@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>global api</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  
+  <div id="app">
+   <p>Counter:{{product.id}}</p>
+   <button @click="counter++">{{counter}}</button>
+  </div>
+<script >
+  let myproduct = {"id":1,name:"book","price":20}
+  let vm = new Vue({
+    el:'#app',
+    data: {
+      counter: 1,
+      product: myproduct,
+    },
+  })
+  // add property to the data obj
+  vm.product.span = 100;
+  Vue.set(myproduct,'span1',100)
+  vm.$watch('counter',(newVal,oldVal)=> {
+    console.log(`new value is ${newVal}, old value is ${oldVal}`);
+  })
+  console.log('vm.$data.product is', vm.$data.product);
+
+  console.log('删除price属性');
+  // Vue.delete(myproduct,'price');
+  console.log('vm.$data.product is', vm.$data.product);
+</script>
+</body>
+</html>
