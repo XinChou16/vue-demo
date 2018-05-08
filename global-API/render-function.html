@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>render-function-demo</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  
+  <div id="app">
+    <moshi :elementtype ="'div,blue,25,div1'">
+      <a href="#">moshi1</a>
+    </moshi>
+    <moshi :elementtype ="'p,red,20,p1'">moshi2</moshi>
+    <moshi :elementtype ="'h3,green,15,h1'">moshi3</moshi>
+  </div>
+
+  <h2>app2</h2>
+  <div id="app2"></div>
+<script >
+  // https://www.tutorialspoint.com/vuejs/vuejs_render_function.htm
+  // https://www.safaribooksonline.com/library/view/vuejs-up-and/9781491997239/ch04.html
+  Vue.component('moshi', {
+    template: '<p><slot></slot></p>',
+    data: function() {
+      return {}
+    },
+    render: function(createElement) {
+      let a = this.elementtype .split(',');
+      console.log('elementtype => ',a);
+      console.log('this.$slots => ',this.$slots); 
+
+      return createElement(a[0],{
+        attrs:{
+          id:a[3],
+          style: `color:${a[1]};font-size:${a[2]};`
+        }
+      },this.$slots.default);
+    },
+    props:{
+        elementtype:{
+          attributes:String,
+          required:true
+        }
+    }
+
+  })
+
+  new Vue({
+    el: '#app',
+  })
+
+  new Vue({
+    el:'#app2',
+    render(createElement) {
+      return createElement(this.tags[1],'Hello Vue')
+    },
+    data: {
+      tags:['p','div']
+    },
+    created() {
+      console.log('el is ',this.$el);
+      console.log('tag is ',this.tags);
+    },
+    mounted() {
+      console.log('el is ',this.$el);
+      console.log('tag is ',this.tags);
+    }
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>slot-demo</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  
+  <div id="app">
+    <moshi>moshi1</moshi>
+    <moshi>moshi2</moshi>
+    <moshi>moshi3</moshi>
+  </div>
+<script >
+  // https://www.tutorialspoint.com/vuejs/vuejs_render_function.htm
+  Vue.component('moshi', {
+    template: '<p><slot></slot></p>',
+    data: function() {
+      return {}
+    },
+
+  })
+
+  new Vue({
+    el:'#app',
+    data: {
+     
+    },
+  })
+</script>
+</body>
+</html>
