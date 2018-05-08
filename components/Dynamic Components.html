@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>动态组件</title>
+</head>
+<body>
+  <div id="app">
+    <component :is="myComp1"></component>
+    <component :is="myComp2"></component>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    new Vue({
+      el:'#app',
+      data: {
+        myComp1: 'app-mint',
+        myComp2: 'app-moshi',
+      },
+      components: {
+        'app-mint':{
+          template: `<p> I am a dynamic component</p>`,
+        },
+        'app-moshi':{
+          template: `<p> I am a dynamic component too</p>`,
+        }
+      }
+    })
+  </script>
+</body>
+</html>

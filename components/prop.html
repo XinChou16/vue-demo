@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>prop和propsData使用</title>
+</head>
+<body>
+  <div id="app">
+    <app-xin
+    :name="name"
+    :major="major"
+    :age="age"
+    ></app-xin>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    // 1. props
+    Vue.component('app-xin',{
+      template:`
+      <div>
+        <p>name: {{name}}</p>
+        <p>major: {{major}}</p>
+        <p>age: {{age}}</p>
+      </div>
+      `,
+      // props:['name','major']
+      // type check and data validator
+      props: {
+        major: String,
+        name: String,
+        age: {
+          type: Number,
+          default: 12,
+          required: false,
+          validator: function(val) {
+            return val > 10;
+          }
+        }
+      }
+    })
+
+    new Vue({
+      el:'#app',
+      data: {
+        name: 'mint',
+        major: 'Optical Engineering',
+        age: 15,
+      },
+      methods:{},
+    })
+
+    // 2. propsData
+    // used for the unit test
+    let Comp = Vue.extend({
+      props:['msg'],
+      template:`<p>{{msg}}</p>`,
+    })
+    let vm = new Comp({
+      propsData:{
+        msg: 'hello propsData'
+      }
+    })
+    if(vm.hasOwnProperty('msg')) {
+      console.log('vm has property msg');
+    }
+    console.log('vm is',vm);
+  </script>
+</body>
+</html>
