@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>compomemt communication</title>
+</head>
+<body>
+  <div id="app">
+    <app-xin
+    :name="name"
+    :major="major"
+    :age="age"
+    ></app-xin>
+    <other-app></other-app>
+  </div>
+  
+  <script src="../js/vue.js"></script>
+  <script>
+    // Eventbus
+    let bus = new Vue();
+
+    // component1
+    Vue.component('app-xin',{
+      template:`
+      <div>
+        <p>name: {{name}}</p>
+        <p>major: {{major}}</p>
+        <p>age: {{age}}</p>
+        <button @click="transfer">通信</button>
+      </div>
+      `,
+      props: {
+        major: [String,Number],
+        name: String,
+        age: {
+          type: Number,
+          default: 12,
+          required: false,
+          validator: function(val) {
+            return val > 10;
+          }
+        }
+      },
+      methods: {
+        transfer() {
+          bus.$emit('addMajor',this.major)
+        }
+      }
+    })
+    
+
+    // componetn 2
+    Vue.component('other-app',{
+      template:`
+      <div>
+        <p>Recieve major: {{major}}</p>
+      </div>
+      `,
+      data() {
+        return {
+          major: '',
+        }
+      },
+      created() {
+        bus.$on('addMajor', major => {
+          this.major = major;
+        })
+      }
+    })
+
+    // vue instance
+    new Vue({
+      el:'#app',
+      data: {
+        name: 'mint',
+        major: 'Optical Engineering',
+        age: 15,
+      },
+      methods:{},
+    })
+  </script>
+</body>
+</html>

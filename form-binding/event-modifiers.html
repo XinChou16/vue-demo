@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <title>modifiers in form</title>
+  <style lang="">
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+   <ul>
+     <li v-for="p in people">
+       {{p}}
+     </li>
+   </ul>
+   <form v-on:submit.prevent="addPerson">
+     <input type="text" v-model="person">
+     <button>Add</button>
+   </form>
+  </div>
+  
+  <script src="../js/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+       person: '',
+       people:[],
+      },
+      methods:{
+        addPerson() {
+          this.people.push(this.person);
+          this.person = '';
+        }
+      }
+    })
+  </script>
+</body>
+</html>
