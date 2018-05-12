@@ -12,6 +12,7 @@
     {{msg}}
     <section>
       <button @click="clickMe">btn</button>
+      <button @click="remove">destory</button>
       <p ref="dom">count: {{count}}</p>
     </section>
   </div>
@@ -29,7 +30,10 @@
     methods: {
       clickMe() {
         alert(this.msg)
-      }
+      },
+      remove() {
+        this.$destroy();
+      },
     },
     beforeCreate(){
       // 初始化生命周期和事件
@@ -68,6 +72,8 @@
     },
     destroyed() {
       console.log('********destoryed:已销毁********');
+      console.log('el is: ',this.$el);
+      console.log('msg is : ',this.msg);
     }
   })
 </script>

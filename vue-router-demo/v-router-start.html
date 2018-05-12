@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue路由</title>
+  <style>
+    .active >a{
+      color: #3cc;
+    }
+  </style>
+</head>
+<body>
+    <div id="app">
+      <h1>hello</h1>
+      <ul>
+        <router-link to="/home" tag="li" active-class="active" exact>
+          <a>/home</a>
+        </router-link>
+
+        <!-- Topic -->
+        <router-link to="/topic/1" tag="li" active-class="active">
+          <a>/topic/1</a>
+        </router-link>
+        <router-link to="/topic/2" tag="li" active-class="active">
+          <a>/topic/2</a>
+        </router-link>
+
+        <!-- User -->
+        <router-link to="/user" tag="li" active-class="active">
+          <a>/user</a>
+        </router-link>
+      </ul>
+      <hr>
+      <div style="height:700px"></div>
+      <p id="data">data</p>
+      <router-view></router-view>
+    </div>
+
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+<script>
+    const topicTpl = `
+      <div>
+        <p>topic</p>
+        <p>id: {{id}}</p>
+        <button @click="navToHome">to-home</button>
+
+      </div>
+    `;
+    const Home = { template: '<div>home</div>' }
+    const Topic = { 
+      data() {
+        return {
+          id: this.$route.params.id
+        }
+      },
+      watch: {
+        '$route'(to,from) {
+          this.id = to.params.id;
+        }
+      },
+      template: topicTpl,
+        methods: {
+          navToHome() {
+            this.$router.push('/home')
+          }
+      },
+    }
+    const User = {
+      data() {
+        return {
+          id: this.$route.params.id
+        }
+      },
+      template: `
+        <div>
+          <p>User page</p>
+          <p>User id: {{id}}</p>
+          <button @click="navToHome">to-home</button>
+          <router-view></router-view>
+        </div>
+      `,
+        methods: {
+          navToHome() {
+            this.$router.push('/home')
+          }
+      },
+    }
+    
+    // User children
+    const UserStart = {
+      data() {
+        return {
+          id: this.$route.params.id
+        }
+      },
+      template: `
+        <div>
+          <router-link to="/user/1" tag="li" active-class="active">
+            <a>/user/1</a>
+          </router-link>
+          <router-link to="/user/2" tag="li" active-class="active">
+            <a>/user/2</a>
+          </router-link>
+        </div>
+      `,
+        methods: {
+          
+      },
+    }
+
+    // User detail
+    const UserDetail = {
+      data() {
+        return {
+          id: this.$route.params.id
+        }
+      },
+      template: `
+        <div>
+          <p>User detail</p>
+          <p>User id: {{id}}</p>
+          <router-link tag="button" :to="{name: 'userEdit',params:{id},query:{local:'zh-cn',limit:100}}">
+            edit
+          </router-link>
+        </div>
+      `,
+      methods: {},
+    }
+    const UserEdit = { 
+        template: `
+          <div>
+            <h3>UserEdit </h3>
+            <p>local: {{$route.query.local}}</p>
+            <p>limit: {{$route.query.limit}}</p>
+          </div>
+        `
+      }
+
+    // router
+    const router = new VueRouter({
+      routes: [
+        { path: "/home", components:{
+          default: Home,
+        } },
+        { path: "/topic/:id", component: Topic },
+        { path: "/user", component: User,children: [
+          {path: '', component: UserStart},
+          {path: ':id', component: UserDetail},
+          {path: ':id/edit', component: UserEdit, name:'userEdit'},
+        ] },
+        {path:'/redirect',redirect:'/user'},
+        {path:'/*',redirect:'/user'},
+      ],
+      // mode: 'history'
+    });
+    new Vue({
+      el: '#app',
+      router,
+      data: {
+        msg: 'hello'
+      }
+    })
+
+</script>
+</body>
+</html>
