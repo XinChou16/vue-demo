@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <title>render function</title>
+  <style>
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+   
+  </div>
+  
+  <script src="../js/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+       
+      }, 
+      // render(h) {
+      //   return h('h1', 'Hello render!')
+      // },
+      render(createElement) {
+        return createElement('ul',{style:{color:'cyan'}},[
+          createElement('li','Zero'),
+          createElement('li','Evan'),
+          createElement('li','You'),
+        ]) 
+      }
+    })
+  </script>
+</body>
+</html>

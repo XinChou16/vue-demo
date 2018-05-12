@@ -16,8 +16,8 @@
       <router-view></router-view>
     </div>
 
-<script src="./js/vue.min.js"></script>
-<script src="./js/vue-router.js"></script>
+<script src="../js/vue.min.js"></script>
+<script src="../js/vue-router.js"></script>
 <script>
     const User = {
       template: '<div>User: {{$route.params.id}}</div>'
@@ -28,6 +28,12 @@
         {path:'/user/:id',component: User}
       ]
     })
+    
+    router.beforeEach((to, from, next) => {
+      console.log(`Route to`, to)
+      console.log(`Route from`, from)
+      next();
+    });
     new Vue({
       router: router,
       mounted: function(){

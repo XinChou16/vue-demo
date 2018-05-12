@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <title>axios function</title>
+  <style>
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+   <p v-for="course in courses"
+    v-bind:key="course.id"
+   >{{course.id}}.&nbsp;{{course.name}}</p>
+  </div>
+  
+  <script src="../js/axios.js"></script>
+  <script src="../js/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        url: 'http://localhost:8000/data.json',
+        courses: [],
+        msg:'1'
+      }, 
+      created() {
+        this.getCourses();
+      },
+      methods: {
+        getCourses() {
+          axios.get('../data.json')
+          .then( res => {
+            this.courses = res.data.courses;
+            console.log(this.courses);
+          })
+          .catch( err => console.log(err))
+        }
+      }
+    })
+  </script>
+</body>
+</html>

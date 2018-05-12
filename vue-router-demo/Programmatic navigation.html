@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <title>Programmatic navigation</title>
+  <style>
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <button @click="navigator('/hello')">/hello</button>
+    <button @click="navigator('/hello/mint')">/hello/name</button>
+
+    <router-view></router-view>
+  </div>
+  
+  <script src="../js/vue-router.js"></script>
+  <script src="../js/vue.js"></script>
+  <script>
+    var hello = {template: '<a>hello content</a>'};
+    var Hello2= {template: '<a>hello content</a>'};
+
+    var router = new VueRouter({
+      routes: [
+      ]
+    })
+    new Vue({
+      el: '#app',
+      data: {
+       
+      },
+      router,
+      methods: {
+        navigator(name) {
+          this.$router.push({path:name})
+        }
+      }
+    })
+  </script>
+</body>
+</html>

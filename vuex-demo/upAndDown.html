@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <title>upAndDown demo</title>
+  <style>
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+   <p>Count: {{count}}</p>
+   <button @click="increment">+</button>
+   <button @click="decrement">-</button>
+   <button @click="reset">reset</button>
+  </div>
+  
+  <script src="../js/vue.js"></script>
+  <script src="../js/vuex.js"></script>
+  <script>
+    var store = new Vuex.Store({
+      state: {
+        count:0,
+      },
+      mutations: {
+        increment: state => state.count += 1,
+        decrement(state) {
+          state.count -= 1;
+        },
+        reset(state) {
+          state.count = 0;
+        }
+      },
+      getter: {
+        count(state) {
+          return state.count;
+        }
+      }
+    })
+
+    new Vue({
+      el: '#app',
+      data: {},
+      computed: {
+        count() {
+          return store.state.count
+        }
+      },
+      methods: {
+        increment() {
+          store.commit('increment');
+          console.log('count is: '+store.state.count);
+        },
+        decrement() {
+          store.commit('decrement');
+          console.log('count is: '+store.state.count);
+        },
+        reset() {
+          store.commit('reset');
+          console.log('count is: '+store.state.count);
+        }
+      }
+    })
+  </script>
+</body>
+</html>
