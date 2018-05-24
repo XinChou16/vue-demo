@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04-nestRouterMore</title>
+</head>
+<body>
+<div id="app">
+  <h2>vue-router</h2>
+  <ul>
+    <router-link to="/" tag="li">
+      <a>主页</a>
+    </router-link>
+    <router-link to="/about/mint" tag="li">
+      <a>/about/mint</a>
+    </router-link>
+    <router-link to="/user" tag="li">
+      <a>/user</a>
+    </router-link>
+  </ul>
+
+  <router-view></router-view>
+</div>
+
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+<script>
+const Home = {template: '<div>Home page</div>'}
+const AboutProfile = {template: '<div>AboutProfile</div>'}
+const AboutEdit = {template: '<div>AboutEdit</div>'}
+const About = {
+  template: `
+  <div>
+    {{$route.params.id}}
+    <router-view></router-view>
+  </div>
+  `
+}
+const User = {template: '<div>User id: {{$route.params.id}}<router-view></router-view></div>'}
+const UserStart = {
+  template: `
+    <div>
+      <router-link to="/user/1" tag="li" active-class="active">
+        <a>/user/1</a>
+      </router-link>
+      <router-link to="/user/2" tag="li" active-class="active">
+        <a>/user/2</a>
+      </router-link>
+    </div>
+  `,
+}
+const UserDetail = {template: '<div>UserDetail</div>'}
+const UserEdit = {template: '<div>UserEdit</div>'}
+const router = new VueRouter({
+  routes: [
+    {path:'/home',component:Home},
+    {path:'/about:id',component:About},
+    {
+      path:'/user',
+      component:User,
+      children: [
+        {path:'',component: UserStart,},
+        {path:':id',component: UserDetail,},
+        {path:':id/edit',component: UserEdit,}
+      ]
+    },
+  ]
+})
+
+new Vue({
+  router,
+}).$mount('#app')
+</script>
+</body>
+</html>

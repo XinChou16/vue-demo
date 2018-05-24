@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03-nestRouter</title>
+</head>
+<body>
+<div id="app">
+  <h2>vue-router</h2>
+  <ul>
+    <router-link to="/" tag="li">
+      <a>主页</a>
+    </router-link>
+    <router-link to="/about/mint" tag="li">
+      <a>/about/mint</a>
+    </router-link>
+    <router-link to="/about/mint/profile" tag="li">
+      <a>/about/mint/profile</a>
+    </router-link>
+
+    <router-link to="/about/xin" tag="li">
+      <a>/about/xin</a>
+    </router-link>
+    <router-link to="/about/xin/edit" tag="li">
+      <a>/about/xin/edit</a>
+    </router-link>
+  </ul>
+
+  <router-view></router-view>
+</div>
+
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+<script>
+const Home = {template: '<div>Home page</div>'}
+const AboutProfile = {template: '<div>AboutProfile</div>'}
+const AboutEdit = {template: '<div>AboutEdit</div>'}
+const About = {
+  template: `
+  <div>
+    {{$route.params.id}}
+    <router-view></router-view>
+  </div>
+  `
+}
+const router = new VueRouter({
+  routes: [
+    {path:'/home',component:Home},
+    {
+      path:'/about/:id',
+      component:About,
+      children: [
+        {path:'profile',component: AboutProfile,},
+        {path:'edit',component: AboutEdit,}
+      ]
+    },
+  ]
+})
+
+new Vue({
+  router,
+}).$mount('#app')
+</script>
+</body>
+</html>
