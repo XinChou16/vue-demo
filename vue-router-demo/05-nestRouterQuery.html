@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>04-nestRouterMore</title>
+  <title>05-nestRouterQuery</title>
   <style>
     li {
       list-style-type: none;
@@ -36,7 +36,7 @@ const About = {
 const User = {
   template: `
     <div>
-      <h2>user-{{ $route.params.id }}</h2> 
+     <h2>user-{{ $route.params.id }}</h2>
       <router-view></router-view>
     </div>
   `
@@ -50,19 +50,32 @@ const UserStart = {
       <router-link to="/user/mint" tag="li">
         <a>user-mint</a>
       </router-link>
+      <router-view></router-view>
     </div>
   `
 }
 const UserProfile = {
   // /user/xin
+  data() {
+    return {
+      id: this.$route.params.id,
+    }
+  },
   template: `
     <div>
-      <router-link to="/user/xin/edit" tag="li">
-        <a>user-xin-edit</a>
+      <p>id: {{id}}</p>
+      <router-link tag="button" :to="{name: 'userEdit',params:{id},query:{local:'zh-cn',limit:100}}">
+        edit
       </router-link>
-      <router-link to="/user/mint/edit" tag="li">
-        <a>user-mint-edit</a>
-      </router-link>
+    </div>
+  `
+}
+const UserEdit = {
+  // /user/xin/edit
+  template: `
+    <div>
+      <p>local: {{$route.query.local}}</p>
+      <p>limit: {{$route.query.limit}}</p>
     </div>
   `
 }
@@ -74,6 +87,7 @@ const router = new VueRouter({
       children: [
         {path: '', component: UserStart},
         {path: ':id', component: UserProfile},
+        {path: ':id/edit', component: UserEdit,name:'userEdit'},
     ]}
   ]
 })

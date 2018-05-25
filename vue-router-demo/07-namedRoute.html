@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>07-namedRoute</title>
+</head>
+<body>
+<div id="app">
+  <ul>
+      <router-link :to="{name: 'user',params:{userId:26}}" tag="li">
+        <a>/user/26</a>
+      </router-link>
+    <router-link to="/about/mint" tag="li">
+      <a>/about/mint</a>
+    </router-link>
+    <router-link to="/about/xin" tag="li">
+      <a>/about/xin</a>
+    </router-link>
+  </ul>
+  <button @click="nav2home">home</button>
+  
+  <router-view></router-view>
+</div>
+
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+<script>
+const User = {
+  template: `
+  <div>user page</div>
+  `,
+}
+const About = {template: '<div>About page: {{$route.params.id}}</div>'}
+const router = new VueRouter({
+  routes: [
+    {
+      path:'/user/:userId',
+      component: User,
+      name: 'user'
+    },
+    {path:'/about/:id',component:About},
+  ]
+})
+
+new Vue({
+  router,
+  methods: {
+    nav2home() {
+      console.log(this.$router);
+      this.$router.push('/')
+    }
+  }
+}).$mount('#app')
+</script>
+</body>
+</html>
