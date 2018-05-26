@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>09-namedViewsNested</title>
+  <style>
+    .router-view {
+      outline: 3px dotted cyan;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+   <h2>nested name views </h2>
+   <div class="router-view">
+     <router-view></router-view>
+     
+   </div>
+</div>
+
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+<script> 
+const Navbar = {
+  template: `
+  <div>
+    <router-link to="/user/phone">phone</router-link>
+    <router-link to="/user/email">email</router-link>
+  </div>
+  `
+}
+// 添加了普通组件nav
+const UserDetail = {
+  template: `
+    <div>
+      <Navbar></Navbar>
+      <router-view ></router-view>
+      <!-- 下面这个不一定会渲染-->
+      <router-view name="help"></router-view>
+    </div>
+  `,
+  components: {Navbar}
+}
+// 路由匹配 /user/phone
+const UserPhone = {
+  template: `
+    <div>
+      My phone
+    </div>
+  `
+}
+// 路由匹配 /user/email
+const UserEmail = {
+  template: `
+    <div>
+      My email
+    </div>
+  `
+}
+const UserEmailhelp = {
+  template: `
+    <div>
+      My email help
+    </div>
+  `
+}
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/user',
+      component: UserDetail,
+      children: [
+        {path: 'phone', component: UserPhone},
+        {
+          path: 'email',
+          // 路由匹配到/user/email时，当有多个router-view时
+          // 将会根据视图的别名分别进行渲染，没有别名渲染默认的模板
+          components: {
+            default: UserEmail,
+            help: UserEmailhelp,
+          }
+        }
+      ]
+    }
+  ]
+})
+
+router.push('/user')
+new Vue({
+  router,
+}).$mount('#app')
+</script>
+</body>
+</html>

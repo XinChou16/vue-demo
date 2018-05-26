@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11-alias</title>
+</head>
+<body>
+<div id="app">
+  <h2>vue-router-alias</h2>
+  <ul>
+    <router-link to="/about" tag="li">
+      <a>/about</a>
+    </router-link>
+    <router-link to="/xin" tag="li">
+      <a>/xin</a>
+    </router-link>
+  </ul>
+  
+  <router-view></router-view>
+</div>
+
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+<script>
+const About = {template: '<div>About page</div>'}
+const Xin = {template: '<div>Xin page</div>'}
+
+const router = new VueRouter({
+  routes: [
+    {path: '/about', component: About, alias: '/xin'}
+  ]
+})
+
+router.push('/')
+
+new Vue({
+  router,
+}).$mount('#app')
+</script>
+</body>
+</html>

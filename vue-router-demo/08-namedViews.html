@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>08-namedViews</title>
+</head>
+<body>
+<div id="app">
+  <ul>
+     <router-link to="/" tag="li"><a>/</a></router-link>
+     <router-link to="/my" tag="li"><a>/my</a></router-link>
+  </ul>
+  
+  <router-view class="view"></router-view>
+  <router-view class="view" name="a"></router-view>
+  <router-view class="view" name="b"></router-view>
+</div>
+
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+<script>
+const Dasiy = {template: `<div>1. Daisy</div>`};
+const Lily = {template: `<div>2. Lily</div>`};
+const Violet = {template: `<div>3. Violet</div>`};
+
+const router = new VueRouter({
+  routes: [{
+    path: '/',
+    components: {
+      default: Dasiy, // default router
+      a: Lily,
+      b: Violet,
+    }
+  },
+  {
+    path: '/my',
+    components: {
+      default: Lily, // default router
+      a: Violet,
+      b: Dasiy,
+    }
+  }]
+})
+
+router.push('/')
+new Vue({
+  router,
+}).$mount('#app')
+</script>
+</body>
+</html>
