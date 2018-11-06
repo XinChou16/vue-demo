@@ -58,6 +58,8 @@
       console.log('$el内容为：'+this.$el.textContent);
       console.log('********count在2s后更新********');
     },
+    
+    // 一般使用`watch`来监听数据更新
     beforeUpdate() {
       console.log('********count 更新之前********');
       console.log('count is '+this.count); // 数据已发生改变，但未渲染到页面
@@ -67,6 +69,8 @@
       console.log('********count已更新********');
       console.log('count节点的文字内容'+this.$refs['dom'].textContent);// 渲染到页面上
     },
+
+    // 一般用来解绑事件
     beforeDestroy() {
       console.log('********beforeDestory:销毁之前********');
     },
