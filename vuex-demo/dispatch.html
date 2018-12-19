@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <title>dispatch demo</title>
+  <style>
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+  </div>
+  
+  <script src="../js/vue.js"></script>
+  <script src="../js/vuex.js"></script>
+  <script> 
+  const TEST = 'TEST'
+  const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        [TEST] (state, n) {
+          state.a += n
+          // 不会生效
+          setTimeout(() => {
+            state.a += n
+          }, 1000);
+        }
+      },
+      actions: {
+        [TEST] ({ commit }, n) {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              commit(TEST, n)
+              resolve()
+            }, 0)
+          })
+        }
+      }
+    })
+    console.log(store.state.a) // 1
+    store.dispatch(TEST, 2).then(() => {
+      store.state.a === 3 // true
+      console.log(store.state.a)
+    })
+  </script>
+</body>
+</html>
