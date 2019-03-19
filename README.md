@@ -1,7 +1,8 @@
 # vue-demo
 
-## Run the demo
+## awesome-vue
 
-1. `npm install -g puer`
-2. `puer -p 8080`
-3.  Launch your browser at 8080 port, and enjoy the demos.
+Mark from [awesome-vue](https://github.com/vuejs/awesome-vue/)
+
+tools
+ - [vuese](https://github.com/vuese/vuese) - One-stop solution for vue component documentation.
