@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+<script src="https://unpkg.com/vue"></script>
+<script>
+  let vm = new Vue({
+    template: `
+      <div
+        v-bind:id="id | upper | reverse"
+        :class="cls | reverse"
+        :ref="ref | lower">
+      </div>
+    `,
+    filters: {
+      upper: v => v.toUpperCase(),
+      reverse: v => v.split('').reverse().join(''),
+      lower: v => v.toLowerCase()
+    },
+    data: {
+      id: 'abc',
+      cls: 'foo',
+      ref: 'BAR'
+    }
+  }).$mount('#app')
+  console.log(vm.$el.id)
+  console.log(vm.$el.className)
+  console.log(vm.$refs.bar === vm.$el)
+</script>
+</body>
+</html>
