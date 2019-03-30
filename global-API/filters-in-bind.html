@@ -29,9 +29,9 @@
       ref: 'BAR'
     }
   }).$mount('#app')
-  console.log(vm.$el.id)
-  console.log(vm.$el.className)
-  console.log(vm.$refs.bar === vm.$el)
+  console.log(vm.$el.id) // CBA
+  console.log(vm.$el.className) // oof
+  console.log(vm.$refs.bar === vm.$el) // true
 </script>
 </body>
 </html>
