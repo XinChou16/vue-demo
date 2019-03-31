@@ -24,4 +24,4 @@ function runWatchers() {
     console.log(app.$el.querySelector('span').textContent)
   }, 500);
 }
-runWatchers()
+// runWatchers()
